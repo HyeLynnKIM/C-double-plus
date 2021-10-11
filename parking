@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int slot, carnum, car, carin=0;
+    cin >> slot >> carnum;
+
+    vector<int> parking;
+    parking.resize(slot);
+
+    int f_slot=slot;
+    for(int i=0;i<carnum;i++)
+    {
+        cin >> car;
+        if(car<0){
+            for(int t=0;t<i;t++)
+            {
+                if((-car)==parking[t]){
+                    parking[t]=0;
+                    carin--;
+                }
+            }
+            if(slot/3>=carin && slot>f_slot){
+                int index;
+                for(int j=0;j<slot;j++)
+                {
+                    if(parking.at(j)==0){
+                        index=j;
+                        for(int s=j;s<slot;s++)
+                        {
+                            if(parking.at(s)!=0){
+                                parking[index]=parking[s];
+                                parking.at(s)=0;
+                                break;
+                            }
+                        }
+                    }
+                }
+                slot/=2;
+                parking.resize(slot);
+            }
+        }
+        else {
+            bool a=true;
+            if(carin==slot) {
+                slot*=2;
+                parking.resize(slot);
+            }
+            for(int z=0;z<slot;z++) {
+                if(parking[z]==0){
+                    parking[z]=car;
+                    carin++;
+                    a=false;
+                    break;
+                }
+            }
+            if(a){
+                parking.push_back(car);
+                carin++;
+            }
+        }
+    }
+    //output
+    for(int i=0;i<parking.size();i++){
+        if(parking[i]!=0) {
+            cout << (i+1) << " " << parking.at(i) << "\n";
+         }
+    }
+    return 0;
+}
