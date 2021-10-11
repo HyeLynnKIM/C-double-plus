@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    vector<vector<int>> coord(1500, vector<int>(1500,0));
+
+    // input n
+    cin >> n;
+
+    int coordx[n]={0}, coordy[n]={0}, width[n]={0}, height[n]={0};
+
+    // input x, y, w, h
+    for(int i=0;i<n;i++) {
+        cin >> coordx[i];
+        if(coordx[i]==-1) {
+            coordx[i]=0;
+            break;
+        }
+        cin >> coordy[i] >> width[i] >> height[i];
+    }
+    // put coordinate true or false
+    for(int i=0;i<n;i++) {
+        int x1=coordx[i]-width[i]/2;
+        int x2=coordx[i]+width[i]/2;
+        int y1=coordy[i]-height[i]/2;
+        int y2=coordy[i]+height[i]/2;
+        for(int x=x1;x<x2;x++) {
+            for(int y=y1;y<y2;y++) {
+                coord[x][y]=1;
+            }
+        }
+    }
+    // sum area
+    int area = 0;
+    for(int i=0;i<1500;i++) {
+        for(int j=0;j<1500;j++) {
+            if(coord[i][j]==1) {
+                area++;
+            }
+        }
+    }
+    cout << area;
+    return 0;
+}
