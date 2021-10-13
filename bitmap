@@ -1,0 +1,39 @@
+#include <iostream>
+#include <bitset>
+#include <string>
+#include <typeinfo>
+
+using namespace std;
+bitset<64> bit;
+
+int main()
+{
+    long long bmap[64], tmap[64];
+    string s[64];
+    char ans[64][64];
+
+    for(int i =0;i<64;i++){
+        scanf("%lld", &bmap[i]);
+        bit=bitset<64>(bmap[i]);
+        s[i] = bit.to_string();
+    }
+    for(int i=0;i<64;i++){
+        for(int j=0;j<64;j++){
+           ans[i][j] = s[j].at(i);
+        }
+    }
+    for(int i=0;i<64;i++){
+        bit.reset();
+        for(int j=0;j<64;j++){
+            if(ans[i][j]-'0'==1){
+                bit.set(bit.size()-1-j,1);
+            }
+            else{
+                bit.set(bit.size()-1-j,0);
+            }
+        }
+        tmap[i]=bit.to_ullong();
+        cout << tmap[i] << "\n";
+    }
+    return 0;
+}
