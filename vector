@@ -1,0 +1,59 @@
+#include <vector>
+#include <string>
+#include <iostream>
+using namespace std;
+
+const int SUBJECT_NO = 3;
+struct StudentInfo {
+    string name;
+    int score[SUBJECT_NO];
+    int sum;
+    float average;
+};
+
+StudentInfo readstudent() {
+    string nameIs;
+    int scores[SUBJECT_NO];
+    int sumIs;
+    float avg;
+    cin >> nameIs;
+    for (int j=0 ; j<SUBJECT_NO ; ++j) {
+        cin >> scores[j];
+    }
+    sumIs = scores[0] + scores[1] + scores[2];
+    avg = sumIs/3;
+
+    StudentInfo st;
+    st.name = nameIs;
+    for (int i=0 ; i<3 ; ++i){
+        st.score[i] = scores[i];
+    }
+    st.sum = sumIs;
+    st.average = avg;
+    return st;
+}
+
+
+int main() {
+    int studentNO ;
+    cin >> studentNO;
+
+    int Total1 = 0, Total2 = 0, Total3 = 0, TotalSum = 0;
+
+    vector<StudentInfo> std(studentNO);
+    vector<StudentInfo>::iterator it = std.begin();
+    for (; it != std.end() ; ++it) {
+        *it = readstudent();
+    }
+    for(it = std.begin(); it != std.end() ; ++it){
+        Total1 += it->score[0];
+        Total2 += it->score[1];
+        Total3 += it->score[2];
+        TotalSum += it->sum;
+        cout << distance(std.begin()-1, it) << " " << it->name << "  " << it->score[0] << " " << it->score[1] << " " << it->score[2] <<" " << it->sum << " " << it->average << endl;  
+    }
+    cout << "Total" << "    " << Total1 << "    " << Total2 << "    " << Total3 << "    " << TotalSum;
+
+    return 0;
+    
+}
