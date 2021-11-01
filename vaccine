@@ -1,0 +1,63 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <utility>
+
+using namespace std;
+pair<int, int> info;
+struct cmp {
+    bool operator()(pair<int, int> &a, pair<int, int> &b){
+        return a.second<b.second;
+    }
+};
+
+int main()
+{
+    int n;
+    vector<int> child;
+    priority_queue<pair<int, int> , vector<pair<int, int> >,cmp> old;
+    priority_queue<pair<int, int> ,vector<pair<int, int> >, cmp> adult;
+    cin >> n;
+
+    int num, age, om_chk=100000, of_chk=0, am_chk=0, af_chk=100000;
+    char gen;
+    for(int i=0;i<n;i++){
+        cin >> num >> age >> gen;
+        if(age<=15) {
+            child.push_back(num);
+        }
+        else if(age>=61) {
+            if(gen=='M'){
+                old.push({num, om_chk});
+                om_chk--;
+            }
+            else{
+                old.push({num, of_chk});
+                of_chk--;
+            }
+
+        }
+        else{
+            if(gen=='M'){
+                adult.push({num, am_chk});
+                am_chk--;
+            }
+            else{
+                adult.push({num, af_chk});
+                af_chk--;
+            }
+        }
+    }
+    while(!old.empty()){
+        cout << old.top().first << "\n";
+        old.pop();
+    }
+    for(int i=0; i< child.size(); i++){
+        cout << child[i] << "\n";
+    }
+    while(!adult.empty()){
+        cout << adult.top().first << "\n";
+        adult.pop();
+    }
+    return 0;
+}
